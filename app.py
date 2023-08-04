@@ -47,3 +47,23 @@ def cosine_similarity():
 
     return jsonify({'most_similar_text': texts[most_similar_index]})
 
+import json
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.post("/")
+async def combine_values(data: dict):
+    try:
+        value1 = data.get('value1', '')
+        value2 = data.get('value2', '')
+        combined_values = f"{value1} {value2}"
+
+        response = {
+            'combined_values': combined_values
+        }
+
+        return response
+
+    except Exception as e:
+        return {'error': str(e)}
